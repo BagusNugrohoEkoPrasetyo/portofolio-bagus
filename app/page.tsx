@@ -247,7 +247,7 @@ export default function Home() {
               <label className="text-sm font-medium text-stone-700">Pesan</label>
               <textarea 
                 name="Pesan" 
-                rows="4" 
+                rows={4}
                 required 
                 className="px-4 py-2 rounded-lg border border-stone-200 bg-stone-50 focus:outline-none focus:border-amber-400 focus:bg-white transition-all resize-none" 
                 placeholder="Tulis pesan Anda di sini..."

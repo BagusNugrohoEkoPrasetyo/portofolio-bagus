@@ -1,6 +1,7 @@
+"use client";                                                                    
+import { useState, useEffect } from 'react';                                     
 import Image from 'next/image';
 import Link from 'next/link';
-// Import ikon dari react-icons
 import { SiPython, SiGo, SiJavascript, SiMysql, SiHtml5 } from 'react-icons/si';
 import { FaJava, FaCss3Alt } from 'react-icons/fa';
 // Array data sosial media (Sama seperti sebelumnya)
@@ -55,6 +56,22 @@ const skills = [
 ];
 
 export default function Home() {
+  const [formData, setFormData] = useState({
+    nama: "", email: "", domisili: "", gender: "", setuju: false
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert("Pendaftaran terkirim! " + JSON.stringify(formData));
+  };
+
+  const [showTop, setShowTop] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 400);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <main 
       className="min-h-screen bg-stone-100 text-stone-700 font-sans py-10 px-4"
@@ -63,6 +80,26 @@ export default function Home() {
         backgroundSize: '25px 25px'
       }}
     >
+      {/* ========================================== */}
+      {/* STICKY NAVBAR - BARU */}
+      {/* ========================================== */}
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-stone-200 shadow-sm mb-6">
+        <div className="max-w-2xl mx-auto px-4 py-3">
+          <div className="flex items-center justify-between gap-4">
+            <a href="#home" className="font-bold text-stone-900 text-sm shrink-0">
+              Bagus<span className="text-amber-600">.</span>
+            </a>
+            <div className="flex gap-1 text-xs font-medium text-stone-600 overflow-x-auto no-scrollbar">
+              <a href="#home"        className="px-3 py-1.5 rounded-full hover:bg-amber-50 hover:text-amber-700 transition whitespace-nowrap">Home</a>
+              <a href="#tentang"     className="px-3 py-1.5 rounded-full hover:bg-amber-50 hover:text-amber-700 transition whitespace-nowrap">Tentang</a>
+              <a href="#project"     className="px-3 py-1.5 rounded-full hover:bg-amber-50 hover:text-amber-700 transition whitespace-nowrap">Project</a>
+              <a href="#pengalaman"  className="px-3 py-1.5 rounded-full hover:bg-amber-50 hover:text-amber-700 transition whitespace-nowrap">Pengalaman</a>
+              <a href="#resume"      className="px-3 py-1.5 rounded-full hover:bg-amber-50 hover:text-amber-700 transition whitespace-nowrap">Resume</a>
+              <a href="#kontak"      className="px-3 py-1.5 rounded-full hover:bg-amber-50 hover:text-amber-700 transition whitespace-nowrap">Kontak</a>
+            </div>
+          </div>
+        </div>
+      </nav>
       
       {/* Wrapper Konten Utama */}
       <div className="max-w-2xl mx-auto flex flex-col gap-6">
@@ -70,7 +107,7 @@ export default function Home() {
         {/* ========================================== */}
         {/* 1. HERO SECTION */}
         {/* ========================================== */}
-        <section className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-6">
+        <section id="home" className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-6 scroll-mt-24">
           
           <div className="flex justify-start">
             <div className="relative w-28 h-28 rounded-full overflow-hidden ring-4 ring-amber-50 shadow-md">
@@ -126,7 +163,7 @@ export default function Home() {
         {/* ========================================== */}
         {/* 2. PROFILE & SKILLS SECTION */}
         {/* ========================================== */}
-        <section className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-4">
+        <section id="tentang" className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-4 scroll-mt-24">
           <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-stone-400">
             // Tentang Saya
           </h2>
@@ -151,7 +188,7 @@ export default function Home() {
         {/* ========================================== */}
         {/* 3. PROJECTS SECTION */}
         {/* ========================================== */}
-        <section className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-6">
+        <section id="project" className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-6 scroll-mt-24">
           <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-stone-400">
             // Portofolio Project
           </h2>
@@ -181,7 +218,7 @@ export default function Home() {
         {/* ========================================== */}
         {/* 4. PENGALAMAN SECTION */}
         {/* ========================================== */}
-        <section className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-6">
+        <section id="pengalaman" className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-6 scroll-mt-24">
           <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-stone-400">
             // Pengalaman
           </h2>
@@ -205,10 +242,57 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ===================================================== */}
+        {/* 4.5. TABEL PROJECT - BARU */}
+        {/* ===================================================== */}
+        <section className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-6">
+          <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-stone-400">
+            // Daftar Project
+          </h2>
+          <table className="w-full border-collapse border border-stone-200 text-sm">
+            <thead>
+              <tr className="bg-stone-50">
+                <th className="border border-stone-200 p-3 text-left">Nama Project</th>
+                <th className="border border-stone-200 p-3 text-left">Teknologi</th>
+                <th className="border border-stone-200 p-3 text-left">Tahun</th>
+                <th className="border border-stone-200 p-3 text-left">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="border border-stone-200 p-3">Kasirku POS</td>
+                <td className="border border-stone-200 p-3">Flask, SQLite, JS</td>
+                <td className="border border-stone-200 p-3">2026</td>
+                <td className="border border-stone-200 p-3">Selesai</td>
+              </tr>
+              <tr>
+                <td className="border border-stone-200 p-3">Portofolio Web</td>
+                <td className="border border-stone-200 p-3">Next.js, TS</td>
+                <td className="border border-stone-200 p-3">2026</td>
+                <td className="border border-stone-200 p-3">On-going</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        {/* ===================================================== */}
+        {/* 4.6. FRAME RESUME - BARU */}
+        {/* ===================================================== */}
+        <section id="resume" className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-6 scroll-mt-24">
+          <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-stone-400">
+            // Resume Online
+          </h2>
+          <iframe
+            src="/CV_Bagus.pdf"
+            title="Resume Bagus Nugroho"
+            className="w-full h-[600px] rounded-2xl border border-stone-200"
+          />
+        </section>
+
         {/* ========================================== */}
         {/* 5. CONTACT FORM SECTION */}
         {/* ========================================== */}
-        <section className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-6">
+        <section id="kontak" className="bg-white border border-stone-200 rounded-3xl p-8 shadow-sm flex flex-col gap-6 scroll-mt-24">
           <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-stone-400">
             // Hubungi Saya
           </h2>
@@ -272,6 +356,11 @@ export default function Home() {
         </footer>
 
       </div>
+      {showTop && (
+        <a href="#home" className="fixed bottom-6 right-6 z-50 w-12 h-12 flex items-center justify-center bg-stone-900 text-white rounded-full shadow-lg hover:bg-amber-600 transition-all duration-300 hover:scale-110" aria-label="Kembali ke atas">
+          ↑
+        </a>
+      )}
     </main>
   );
 }
